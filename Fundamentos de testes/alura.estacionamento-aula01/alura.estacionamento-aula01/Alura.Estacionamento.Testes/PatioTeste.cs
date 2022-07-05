@@ -13,6 +13,7 @@ namespace Alura.Estacionamento.Testes
     public class PatioTeste: IDisposable
     {
         private Veiculo veiculo;
+        private Operador operador;
         public ITestOutputHelper SaidaConsoleTeste;
 
         public PatioTeste(ITestOutputHelper _saidaConsoleTeste)
@@ -20,6 +21,9 @@ namespace Alura.Estacionamento.Testes
             SaidaConsoleTeste = _saidaConsoleTeste;
             SaidaConsoleTeste.WriteLine("Construtor invocado");
             veiculo = new Veiculo();
+
+            operador = new Operador();
+            operador.Nome = "Pedro Fagundes";
         }
 
         [Fact]
@@ -27,6 +31,9 @@ namespace Alura.Estacionamento.Testes
         {
             //Arrange
             var estacionamento = new Patio();
+
+            estacionamento.OperadorPatio = operador;
+
             //var veiculo = new Veiculo();
             veiculo.Proprietario = "Andre Silva";
             veiculo.Tipo = TipoVeiculo.Automovel;
@@ -56,6 +63,7 @@ namespace Alura.Estacionamento.Testes
         {
             //Arrange
             var estacionamento = new Patio();
+            estacionamento.OperadorPatio = operador;
             //var veiculo = new Veiculo();
             veiculo.Proprietario = proprietario;
             veiculo.Cor = cor;
@@ -75,13 +83,14 @@ namespace Alura.Estacionamento.Testes
 
         [Theory]
         [InlineData("Andre Silva", "ASD-1498","preto","Gol")]
-        public void LocalizaVeiculoNoPatioComBaseNaPlaca(string proprietario,
+        public void LocalizaVeiculoNoPatioComBaseNoIdTicket(string proprietario,
                                                         string placa,
                                                         string cor,
                                                         string modelo)
         {
             //Arrange
             var estacionamento = new Patio();
+            estacionamento.OperadorPatio = operador;
             //var veiculo = new Veiculo();
             veiculo.Proprietario = proprietario;
             veiculo.Cor = cor;
@@ -90,7 +99,7 @@ namespace Alura.Estacionamento.Testes
             estacionamento.RegistrarEntradaVeiculo(veiculo);
 
             //Act
-            var consultado = estacionamento.PesquisaVeiculo(placa);
+            var consultado = estacionamento.PesquisaVeiculo(veiculo.IdTicket);
 
             //Assert
             Assert.Equal(placa, consultado.Placa);
@@ -102,6 +111,7 @@ namespace Alura.Estacionamento.Testes
         {
             //Arrange
             var estacionamento = new Patio();
+            estacionamento.OperadorPatio = operador;
             //var veiculo = new Veiculo();
             veiculo.Proprietario = "Jose Silva";
             veiculo.Placa = "ZXC-8524";

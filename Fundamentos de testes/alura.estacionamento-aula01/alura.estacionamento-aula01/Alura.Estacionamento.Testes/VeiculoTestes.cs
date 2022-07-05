@@ -65,7 +65,7 @@ namespace Alura.Estacionamento.Testes
             string dados = veiculo.ToString();
 
             //Assert
-            Assert.Contains("Ficha do Veiculo:", dados);
+            Assert.Contains("Ficha do Veículo:", dados);
         }
 
 
@@ -97,7 +97,20 @@ namespace Alura.Estacionamento.Testes
             Assert.Equal("O 4° caractere deve ser um hífen", mensagem.Message);
         }
 
-        public void Dispose()
+        [Fact]
+        public void TestaUltimosCaracteresPlacaVeiculoComoNumeros()
+        {
+            //Arrenge
+            string placaFormatoErrado = "ASD-445U";
+
+            //Assert
+            Assert.Throws<FormatException>(
+                //Act
+                () => new Veiculo().Placa = placaFormatoErrado
+            ); ;
+        }
+
+            public void Dispose()
         {
             SaidaConsoleTeste.WriteLine("Dispose invocado");
         }
