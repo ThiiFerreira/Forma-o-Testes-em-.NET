@@ -6,17 +6,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Alura.Estacionamento.Testes
 {
-    public class PatioTeste
+    public class PatioTeste: IDisposable
     {
+        private Veiculo veiculo;
+        public ITestOutputHelper SaidaConsoleTeste;
+
+        public PatioTeste(ITestOutputHelper _saidaConsoleTeste)
+        {
+            SaidaConsoleTeste = _saidaConsoleTeste;
+            SaidaConsoleTeste.WriteLine("Construtor invocado");
+            veiculo = new Veiculo();
+        }
+
         [Fact]
         public void ValidaFaturamentoDoEstacionamentoComUmVeiculo()
         {
             //Arrange
             var estacionamento = new Patio();
-            var veiculo = new Veiculo();
+            //var veiculo = new Veiculo();
             veiculo.Proprietario = "Andre Silva";
             veiculo.Tipo = TipoVeiculo.Automovel;
             veiculo.Cor = "Verde";
@@ -45,7 +56,7 @@ namespace Alura.Estacionamento.Testes
         {
             //Arrange
             var estacionamento = new Patio();
-            var veiculo = new Veiculo();
+            //var veiculo = new Veiculo();
             veiculo.Proprietario = proprietario;
             veiculo.Cor = cor;
             veiculo.Modelo = modelo;
@@ -71,7 +82,7 @@ namespace Alura.Estacionamento.Testes
         {
             //Arrange
             var estacionamento = new Patio();
-            var veiculo = new Veiculo();
+            //var veiculo = new Veiculo();
             veiculo.Proprietario = proprietario;
             veiculo.Cor = cor;
             veiculo.Modelo = modelo;
@@ -91,7 +102,7 @@ namespace Alura.Estacionamento.Testes
         {
             //Arrange
             var estacionamento = new Patio();
-            var veiculo = new Veiculo();
+            //var veiculo = new Veiculo();
             veiculo.Proprietario = "Jose Silva";
             veiculo.Placa = "ZXC-8524";
             veiculo.Cor = "Verde";
@@ -112,5 +123,9 @@ namespace Alura.Estacionamento.Testes
 
         }
 
-     }
+        public void Dispose()
+        {
+            SaidaConsoleTeste.WriteLine("Dispose invocado");
+        }
+    }
 }
