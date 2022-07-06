@@ -68,6 +68,7 @@ namespace Alura.Estacionamento.Testes
             Assert.Contains("Ficha do Ve�culo:", dados);
         }
 
+<<<<<<< HEAD
 
         [Fact]
         public void TestaNomeProprietarioVeiculoComMenosDeTresCaracteres()
@@ -111,6 +112,9 @@ namespace Alura.Estacionamento.Testes
         }
 
             public void Dispose()
+=======
+        public void Dispose()
+>>>>>>> parent of 6197b75 (Testando exceções)
         {
             SaidaConsoleTeste.WriteLine("Dispose invocado");
         }

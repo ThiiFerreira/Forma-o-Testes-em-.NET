@@ -71,6 +71,7 @@ namespace Alura.Estacionamento.Modelos
         public string Modelo { get; set; }
         public string Proprietario
         {
+<<<<<<< HEAD
             get
             {
                 return _proprietario;
@@ -84,6 +85,9 @@ namespace Alura.Estacionamento.Modelos
                 _proprietario = value;
             }
 
+=======
+            get; set;
+>>>>>>> parent of 6197b75 (Testando exceções)
         }
         public DateTime HoraEntrada { get; set; }
         public DateTime HoraSaida { get; set; }
