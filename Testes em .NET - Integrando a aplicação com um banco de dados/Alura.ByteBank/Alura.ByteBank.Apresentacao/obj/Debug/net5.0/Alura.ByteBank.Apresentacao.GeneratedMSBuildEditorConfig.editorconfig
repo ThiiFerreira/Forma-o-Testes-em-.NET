@@ -1,0 +1,10 @@
+is_global = true
+build_property.TargetFramework = net5.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.PublishSingleFile = 
+build_property.IncludeAllContentForSelfExtract = 
+build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
+build_property.RootNamespace = Alura.ByteBank.Apresentacao
+build_property.ProjectDir = D:\Alura\Formação Testes em .NET\Testes em .NET - Integrando a aplicação com um banco de dados\Alura.ByteBank\Alura.ByteBank.Apresentacao\

@@ -1,0 +1,15 @@
+D:\Alura\Formação Testes em .NET\Testes em .NET - Integrando a aplicação com um banco de dados\Alura.ByteBank\Alura.ByteBank.Aplicacao\bin\Debug\net5.0\Alura.ByteBank.Aplicacao.deps.json
+D:\Alura\Formação Testes em .NET\Testes em .NET - Integrando a aplicação com um banco de dados\Alura.ByteBank\Alura.ByteBank.Aplicacao\bin\Debug\net5.0\Alura.ByteBank.Aplicacao.dll
+D:\Alura\Formação Testes em .NET\Testes em .NET - Integrando a aplicação com um banco de dados\Alura.ByteBank\Alura.ByteBank.Aplicacao\bin\Debug\net5.0\ref\Alura.ByteBank.Aplicacao.dll
+D:\Alura\Formação Testes em .NET\Testes em .NET - Integrando a aplicação com um banco de dados\Alura.ByteBank\Alura.ByteBank.Aplicacao\bin\Debug\net5.0\Alura.ByteBank.Aplicacao.pdb
+D:\Alura\Formação Testes em .NET\Testes em .NET - Integrando a aplicação com um banco de dados\Alura.ByteBank\Alura.ByteBank.Aplicacao\bin\Debug\net5.0\Alura.ByteBank.Dominio.dll
+D:\Alura\Formação Testes em .NET\Testes em .NET - Integrando a aplicação com um banco de dados\Alura.ByteBank\Alura.ByteBank.Aplicacao\bin\Debug\net5.0\Alura.ByteBank.Dominio.pdb
+D:\Alura\Formação Testes em .NET\Testes em .NET - Integrando a aplicação com um banco de dados\Alura.ByteBank\Alura.ByteBank.Aplicacao\obj\Debug\net5.0\Alura.ByteBank.Aplicacao.csproj.AssemblyReference.cache
+D:\Alura\Formação Testes em .NET\Testes em .NET - Integrando a aplicação com um banco de dados\Alura.ByteBank\Alura.ByteBank.Aplicacao\obj\Debug\net5.0\Alura.ByteBank.Aplicacao.GeneratedMSBuildEditorConfig.editorconfig
+D:\Alura\Formação Testes em .NET\Testes em .NET - Integrando a aplicação com um banco de dados\Alura.ByteBank\Alura.ByteBank.Aplicacao\obj\Debug\net5.0\Alura.ByteBank.Aplicacao.AssemblyInfoInputs.cache
+D:\Alura\Formação Testes em .NET\Testes em .NET - Integrando a aplicação com um banco de dados\Alura.ByteBank\Alura.ByteBank.Aplicacao\obj\Debug\net5.0\Alura.ByteBank.Aplicacao.AssemblyInfo.cs
+D:\Alura\Formação Testes em .NET\Testes em .NET - Integrando a aplicação com um banco de dados\Alura.ByteBank\Alura.ByteBank.Aplicacao\obj\Debug\net5.0\Alura.ByteBank.Aplicacao.csproj.CoreCompileInputs.cache
+D:\Alura\Formação Testes em .NET\Testes em .NET - Integrando a aplicação com um banco de dados\Alura.ByteBank\Alura.ByteBank.Aplicacao\obj\Debug\net5.0\Alura.ByteBank.Aplicacao.csproj.CopyComplete
+D:\Alura\Formação Testes em .NET\Testes em .NET - Integrando a aplicação com um banco de dados\Alura.ByteBank\Alura.ByteBank.Aplicacao\obj\Debug\net5.0\Alura.ByteBank.Aplicacao.dll
+D:\Alura\Formação Testes em .NET\Testes em .NET - Integrando a aplicação com um banco de dados\Alura.ByteBank\Alura.ByteBank.Aplicacao\obj\Debug\net5.0\ref\Alura.ByteBank.Aplicacao.dll
+D:\Alura\Formação Testes em .NET\Testes em .NET - Integrando a aplicação com um banco de dados\Alura.ByteBank\Alura.ByteBank.Aplicacao\obj\Debug\net5.0\Alura.ByteBank.Aplicacao.pdb
