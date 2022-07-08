@@ -67,7 +67,7 @@ namespace Alura.ByteBank.Infraestrutura.Testes
         }
 
         [Fact]
-        public void TestaInsereUmaNovaAgenciaNaBaseDeDados()
+        public void TestaInserirUmaNovaAgenciaNaBaseDeDados()
         {
             //Arrange
             string nome = "Agencia Guarapari";
