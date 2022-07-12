@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using Alura.ByteBank.WebApp.Testes.PageObjects;
+using Alura.ByteBank.WebApp.Testes.Utilitarios;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
@@ -8,29 +10,28 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Alura.ByteBank.WebApp.Testes
 {
-    public class AposRealizarLogin
+    public class AposRealizarLogin: IClassFixture<Gerenciador>
     {
+        private IWebDriver driver;
+        public ITestOutputHelper saidaConsoleTeste;
+        public AposRealizarLogin(Gerenciador gerenciador, ITestOutputHelper _saidaConsoleTeste)
+        {
+            driver = gerenciador.Driver;
+        }
         [Fact]
         public void AposRealizarLoginVerificaSeExisteOpcaoAgenciaMenu()
         {
             //Arrange
-            IWebDriver driver = new ChromeDriver(Path.GetDirectoryName(
-            Assembly.GetExecutingAssembly().Location));
-
-            driver.Navigate().GoToUrl("https://localhost:44309/UsuarioApps/Login");
-
-            var login = driver.FindElement(By.Id("Email"));
-            var senha = driver.FindElement(By.Id("Senha"));
-            var btnLogar = driver.FindElement(By.Id("btn-logar"));
-
-            login.SendKeys("andre@email.com");
-            senha.SendKeys("senha01");
+            var loginPO = new LoginPO(driver);
+            loginPO.Navegar("https://localhost:44309/UsuarioApps/Login");
 
             //Act
-            btnLogar.Click();
+            loginPO.PreencherCampos("andre@email.com", "senha01");
+            loginPO.btnClick();
 
             //Assert
             Assert.Contains("Agência", driver.PageSource);
@@ -40,20 +41,12 @@ namespace Alura.ByteBank.WebApp.Testes
         public void TestaRealizarLoginSemPreencherCampos()
         {
             //Arrange
-            IWebDriver driver = new ChromeDriver(Path.GetDirectoryName(
-            Assembly.GetExecutingAssembly().Location));
-
-            driver.Navigate().GoToUrl("https://localhost:44309/UsuarioApps/Login");
-
-            var login = driver.FindElement(By.Id("Email"));
-            var senha = driver.FindElement(By.Id("Senha"));
-            var btnLogar = driver.FindElement(By.Id("btn-logar"));
-
-            //login.SendKeys("andre@email.com");
-            //senha.SendKeys("senha01");
+            var loginPO = new LoginPO(driver);
+            loginPO.Navegar("https://localhost:44309/UsuarioApps/Login");
 
             //Act
-            btnLogar.Click();
+            loginPO.PreencherCampos("", "");
+            loginPO.btnClick();
 
             //Assert
             Assert.Contains("The Email field is required.", driver.PageSource);
@@ -65,25 +58,95 @@ namespace Alura.ByteBank.WebApp.Testes
         public void TentaRealizarLoginComSenhaInvalida()
         {
             //Arrange
-            IWebDriver driver = new ChromeDriver(Path.GetDirectoryName(
-            Assembly.GetExecutingAssembly().Location));
-
-            driver.Navigate().GoToUrl("https://localhost:44309/UsuarioApps/Login");
-
-            var login = driver.FindElement(By.Id("Email"));
-            var senha = driver.FindElement(By.Id("Senha"));
-            var btnLogar = driver.FindElement(By.Id("btn-logar"));
-
-            //login.SendKeys("andre@email.com");
-            senha.SendKeys("senha10"); //Senha invalida.
+            var loginPO = new LoginPO(driver);
+            loginPO.Navegar("https://localhost:44309/UsuarioApps/Login");
 
             //Act
-            btnLogar.Click();
+            loginPO.PreencherCampos("andre@email.com", "senha10");
+            loginPO.btnClick();
 
             //Assert
             Assert.Contains("Login", driver.PageSource);
-            
+        }
+
+        [Fact]
+        public void RealizarLoginAcessaMenuECadastraCliente()
+        {
+            //Arrange
+            var loginPO = new LoginPO(driver);
+            loginPO.Navegar("https://localhost:44309/UsuarioApps/Login");
+
+            //Act
+            loginPO.PreencherCampos("andre@email.com", "senha01");
+            loginPO.btnClick();
+
+            driver.FindElement(By.LinkText("Cliente")).Click();
+
+            driver.FindElement(By.LinkText("Adicionar Cliente")).Click();
+
+            driver.FindElement(By.Name("Identificador")).Click();
+            driver.FindElement(By.Name("Identificador"))
+                .SendKeys("2df71922-ca7d-4d43-b142-0767b32f822a");
+            driver.FindElement(By.Name("CPF")).Click();
+            driver.FindElement(By.Name("CPF")).SendKeys("69981034096"); 
+            driver.FindElement(By.Name("Nome")).Click();
+            driver.FindElement(By.Name("Nome")).SendKeys("Tobey Garfield");
+            driver.FindElement(By.Name("Profissao")).Click();
+            driver.FindElement(By.Name("Profissao")).SendKeys("Cientista");
+
+            //Act
+            driver.FindElement(By.CssSelector(".btn-primary")).Click();
+            driver.FindElement(By.LinkText("Home")).Click();
+
+            //Assert
+            Assert.Contains("Logout", driver.PageSource);
 
         }
+
+        [Fact]
+        public void RealizaLoginAcessaListagemDeContas()
+        {
+            //Arrange
+            var loginPO = new LoginPO(driver);
+            loginPO.Navegar("https://localhost:44309/UsuarioApps/Login");
+
+            loginPO.PreencherCampos("andre@email.com", "senha01");
+            loginPO.btnClick();
+
+            driver.FindElement(By.Id("contacorrente")).Click();
+
+            IReadOnlyCollection<IWebElement> elements =
+                driver.FindElements(By.TagName("a"));
+
+            var elemento = (from WebElemento in elements
+                            where WebElemento.Text.Contains("Detalhes")
+                            select WebElemento).First();
+
+            //Act
+            elemento.Click();
+
+            //Assert
+            Assert.Contains("Voltar", driver.PageSource);
+        }
+
+        [Fact]
+        public void RealizaLoginAcessaListagemDeContasUsandoHomePO()
+        {
+            //Arrange
+            var loginPO = new LoginPO(driver);
+            loginPO.Navegar("https://localhost:44309/UsuarioApps/Login");
+
+            //Act
+            loginPO.PreencherCampos("andre@email.com", "senha01");
+            loginPO.btnClick();
+
+            var homePO = new HomePO(driver);
+            homePO.LinkContaCorrenteClick();
+
+            //Assert
+            Assert.Contains("Adicionar Conta-Corrente", driver.PageSource);
+        }
+
+        
     }
 }

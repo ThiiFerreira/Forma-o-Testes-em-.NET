@@ -13,11 +13,17 @@ namespace Alura.ByteBank.WebApp.Testes
 {
     public class NavegandoNaPaginaHome
     {
+        private IWebDriver driver;
+        public NavegandoNaPaginaHome()
+        {
+            driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+        }
+
         [Fact]
         public void CarregaPaginaHomeEVerificaTituloDePagina()
         {
             //Arrange
-            IWebDriver driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+            //IWebDriver driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
 
             //Act
             driver.Navigate().GoToUrl("https://localhost:44309");
@@ -30,7 +36,7 @@ namespace Alura.ByteBank.WebApp.Testes
         public void CarregaPaginaHomeVerificaExistenciaLinkLOginEHome()
         {
             //Arrange
-            IWebDriver driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+            //IWebDriver driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
 
             //Act
             driver.Navigate().GoToUrl("https://localhost:44309");
@@ -44,26 +50,31 @@ namespace Alura.ByteBank.WebApp.Testes
         public void LogandoNoSistema()
         {
             //Arrange
-            IWebDriver driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+            //IWebDriver driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
 
 
             driver.Navigate().GoToUrl("https://localhost:44309/");
             driver.Manage().Window.Size = new System.Drawing.Size(1382, 744);
+
             driver.FindElement(By.LinkText("Login")).Click();
             driver.FindElement(By.Id("Email")).Click();
+
             driver.FindElement(By.Id("Email")).SendKeys("andre@email.com");
             driver.FindElement(By.Id("Senha")).Click();
             driver.FindElement(By.Id("Senha")).SendKeys("senha01");
-            driver.FindElement(By.Id("Senha")).SendKeys(Keys.Enter);
-            driver.FindElement(By.CssSelector(".btn")).Click();
-            driver.Close();
+
+            driver.FindElement(By.Id("btn-logar")).Click();
+            driver.FindElement(By.Id("agencia")).Click();
+            driver.FindElement(By.Id("home")).Click();
+
+
         }
 
         [Fact]
         public void ValidaLinkDeLoginNaHome()
         {
             //Arrange
-            IWebDriver driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+            //IWebDriver driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
             driver.Navigate().GoToUrl("https://localhost:44309/");
 
             var linkLogin = driver.FindElement(By.LinkText("Login"));
@@ -75,5 +86,32 @@ namespace Alura.ByteBank.WebApp.Testes
             Assert.Contains("img", driver.PageSource);
 
         }
+
+        [Fact]
+        public void TentaAcessarPaginaSemEstarLogado()
+        {
+            //Arrange
+            //Act
+            driver.Navigate().GoToUrl("https://localhost:44309/Agencia/Index");
+
+            //Assert
+            Assert.Contains("401", driver.PageSource);
+
+        }
+
+        [Fact]
+        public void AcessarPaginaSemEstarLogadoVerificaUrl()
+        {
+            //Arrange
+            //Act
+            driver.Navigate().GoToUrl("https://localhost:44309/Agencia/Index");
+
+            //Assert
+            Assert.Contains("https://localhost:44309/Agencia/Index", driver.Url);
+            Assert.Contains("401", driver.PageSource);
+        }
+
+
+
     }
 }
