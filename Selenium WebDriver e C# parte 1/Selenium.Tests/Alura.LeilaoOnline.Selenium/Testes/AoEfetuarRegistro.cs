@@ -4,6 +4,7 @@ using System.Text;
 using Xunit;
 using OpenQA.Selenium;
 using Alura.LeilaoOnline.Selenium.Fixtures;
+using Alura.LeilaoOnline.Selenium.PageObjects;
 
 namespace Alura.LeilaoOnline.Selenium.Testes
 {
@@ -22,31 +23,13 @@ namespace Alura.LeilaoOnline.Selenium.Testes
         {
             //Arrange - dado chrome aberto, pagina inicial do sist de leilões,
             //dados de registros validos informados
-            driver.Navigate().GoToUrl("http://localhost:5000");
+            var registroPO = new RegistroPO(driver);
+            registroPO.Visitar();
 
-            //nome
-            var inputNome = driver.FindElement(By.Id("Nome"));
-
-            //email
-            var inputEmail = driver.FindElement(By.Id("Email"));
-
-            //password
-            var inputSenha = driver.FindElement(By.Id("Password"));
-
-            //confirmapassword
-            var inputConfirmaSenha = driver.FindElement(By.Id("ConfirmPassword"));
-
-            //botao de registro
-            var bortaoRegistro = driver.FindElement(By.Id("btnRegistro"));
-
-            inputNome.SendKeys("Daniel Portugal");
-            inputEmail.SendKeys("daniel.portugal@caelum.com.br");
-            inputSenha.SendKeys("123");
-            inputConfirmaSenha.SendKeys("123");
-
+            registroPO.PreencherFormulario("Daniel Portugal", "daniel.portugal@caelum.com.br", "123", "123");
 
             //Act - efetuo registro
-            bortaoRegistro.Click();
+            registroPO.SubmeteFormulario();
 
             //Assert - devo ser direcionado para uma pagina de agradecimento
             Assert.Contains("Obrigado", driver.PageSource);
@@ -65,33 +48,54 @@ namespace Alura.LeilaoOnline.Selenium.Testes
         {
             //Arrange - dado chrome aberto, pagina inicial do sist de leilões,
             //dados de registros validos informados
-            driver.Navigate().GoToUrl("http://localhost:5000");
+            var registroPO = new RegistroPO(driver);
+            registroPO.Visitar();
 
-            //nome
-            var inputNome = driver.FindElement(By.Id("Nome"));
 
-            //email
-            var inputEmail = driver.FindElement(By.Id("Email"));
-
-            //password
-            var inputSenha = driver.FindElement(By.Id("Password"));
-
-            //confirmapassword
-            var inputConfirmaSenha = driver.FindElement(By.Id("ConfirmPassword"));
-
-            //botao de registro
-            var bortaoRegistro = driver.FindElement(By.Id("btnRegistro"));
-
-            inputNome.SendKeys(nome);
-            inputEmail.SendKeys(email);
-            inputSenha.SendKeys(senha);
-            inputConfirmaSenha.SendKeys(confirmaSenha);
+            registroPO.PreencherFormulario(nome, email, senha, confirmaSenha);
 
             //Act - efetuo registro
-            bortaoRegistro.Click();
+            registroPO.SubmeteFormulario();
 
             //Assert - devo ser direcionado para uma pagina de agradecimento
             Assert.Contains("section-registro", driver.PageSource);
+        }
+
+        [Fact]
+        public void DadoNomeEmBrancoDeveMostrarMensagemDeErro()
+        {
+            //Arrange
+            var registroPO = new RegistroPO(driver);
+
+            registroPO.Visitar();
+
+            //Act
+            registroPO.SubmeteFormulario();
+
+            //Assert
+            IWebElement elemento = driver.FindElement(By.CssSelector("span.msg-erro[data-valmsg-for=Nome]"));
+            Assert.Equal("The Nome field is required.", elemento.Text);
+        }
+
+        [Fact]
+        public void DadoEmailInvalidoDeveMostrarMensagemDeErro()
+        {
+            //Arrange
+            var registroPO = new RegistroPO(driver);
+            registroPO.Visitar();
+
+            registroPO.PreencherFormulario(
+                nome: "",
+                email: "daniel",
+                senha: "",
+                confirmSenha: ""
+                );
+            
+            //Act
+            registroPO.SubmeteFormulario();
+
+            //Assert
+            Assert.Equal("Please enter a valid email address.", registroPO.EmailMensagemErro);
         }
     }
 }
