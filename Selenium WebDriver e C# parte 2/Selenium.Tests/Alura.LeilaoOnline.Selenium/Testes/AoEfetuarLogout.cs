@@ -24,7 +24,7 @@ namespace Alura.LeilaoOnline.Selenium.Testes
             //Arrange
             var loginPO = new LoginPO(driver);
             loginPO.Visitar();
-            loginPO.PreecherFormulario("fulano@example.org", "123");
+            loginPO.PreencheFormulario("fulano@example.org", "123");
             loginPO.SubmeteFormulario();
 
             var dashboardPO = new DashboardInteressadaPO(driver);

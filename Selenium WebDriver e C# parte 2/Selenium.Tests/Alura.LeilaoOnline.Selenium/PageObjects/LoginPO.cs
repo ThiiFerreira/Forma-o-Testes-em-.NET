@@ -25,7 +25,7 @@ namespace Alura.LeilaoOnline.Selenium.PageObjects
             driver.Navigate().GoToUrl("https://localhost:5001/Autenticacao/Login");
         }
 
-        public void PreecherFormulario(string login, string senha)
+        public void PreencheFormulario(string login, string senha)
         {
             driver.FindElement(byInputLogin).SendKeys(login);
             driver.FindElement(byInputSenha).SendKeys(senha);
