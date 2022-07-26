@@ -1,6 +1,8 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Alura.LeilaoOnline.Selenium.PageObjects
@@ -29,6 +31,19 @@ namespace Alura.LeilaoOnline.Selenium.PageObjects
             byInputInicioPregao = By.Id("InicioPregao");
             byInputTerminoPregao = By.Id("TerminoPregao");
             byBtnSalvar = By.CssSelector("button[type=submit]");
+        }
+
+        public IEnumerable<string> Categorias
+        {
+            get
+            {
+                var elementoCategoria = new SelectElement( driver.FindElement(byInputCategoria));
+                //elementoCategoria.FindElements(By.TagName("option"));
+                return elementoCategoria
+                    .Options
+                    .Where(o => o.Enabled)
+                    .Select(o => o.Text);
+            }
         }
 
         public void Visitar()
