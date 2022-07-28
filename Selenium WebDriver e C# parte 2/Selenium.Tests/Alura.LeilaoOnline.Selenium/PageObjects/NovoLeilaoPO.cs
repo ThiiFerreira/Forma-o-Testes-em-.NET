@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace Alura.LeilaoOnline.Selenium.PageObjects
 {
@@ -54,7 +55,7 @@ namespace Alura.LeilaoOnline.Selenium.PageObjects
         public void PreencheFormulario(
             string titulo,
             string descricao,
-            //string categoria,
+            string categoria,
             double valor,
             string imagem,
             DateTime inicio,
@@ -68,6 +69,18 @@ namespace Alura.LeilaoOnline.Selenium.PageObjects
             driver.FindElement(byInputImagem).SendKeys(imagem);
             driver.FindElement(byInputInicioPregao).SendKeys(inicio.ToString("dd/MM/yyyy"));
             driver.FindElement(byInputTerminoPregao).SendKeys(termino.ToString("dd/MM/yyyy"));
+
+            var selectWrapper = driver.FindElement(By.ClassName("select-wrapper"));
+            selectWrapper.Click();
+            var opcoes = selectWrapper.FindElements(By.CssSelector("li>span")).ToList();
+
+            opcoes
+                .Where(o => o.Text.Contains(categoria))
+                .ToList()
+                .ForEach(o =>
+                   {
+                       o.Click();
+                   });
         }
 
         public void SubmeteFormulario()

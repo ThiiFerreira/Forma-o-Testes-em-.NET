@@ -34,7 +34,7 @@ namespace Alura.LeilaoOnline.Selenium.Testes
             novoLeilaoPO.PreencheFormulario(
                 "Leilão de Coleção 1",
                 "Nullam aliquet condimentum elit vitae volutpat. Vivamus ut nisi venenatis, facilisis odio eget, lobortis tortor. Cras mattis sit amet dolor id bibendum. Nulla turpis justo, porttitor eget leo vel, dictum tempor diam. Sed dui arcu, feugiat nec placerat ac, suscipit a mi. Etiam eget risus et tellus placerat tincidunt at ut lorem.",
-                //"Item de Colecionador",
+                "Item de Colecionador",
                 4000,
                 "C:\\Users\\thiag\\Pictures\\colecao1.jpg",
                 DateTime.Now.AddDays(20),
