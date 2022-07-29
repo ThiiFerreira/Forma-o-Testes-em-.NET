@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Alura.LeilaoOnline.Selenium.Helpers;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
@@ -70,17 +71,14 @@ namespace Alura.LeilaoOnline.Selenium.PageObjects
             driver.FindElement(byInputInicioPregao).SendKeys(inicio.ToString("dd/MM/yyyy"));
             driver.FindElement(byInputTerminoPregao).SendKeys(termino.ToString("dd/MM/yyyy"));
 
-            var selectWrapper = driver.FindElement(By.ClassName("select-wrapper"));
-            selectWrapper.Click();
-            var opcoes = selectWrapper.FindElements(By.CssSelector("li>span")).ToList();
+            SelecionaCategoria(categoria);
+            
+        }
 
-            opcoes
-                .Where(o => o.Text.Contains(categoria))
-                .ToList()
-                .ForEach(o =>
-                   {
-                       o.Click();
-                   });
+        private void SelecionaCategoria(string categoria)
+        {
+            var select = new SelectMaterialize(driver, By.ClassName("select-wrapper"));
+            select.SelectByText(new List<string> { categoria });
         }
 
         public void SubmeteFormulario()

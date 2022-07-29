@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Alura.LeilaoOnline.Selenium.Helpers;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using System;
 using System.Collections.Generic;
@@ -25,40 +26,31 @@ namespace Alura.LeilaoOnline.Selenium.PageObjects
             byLogoutLink = By.Id("logout");
             byMeuPerfilLink = By.Id("meu-perfil");
             bySelectCategorias = By.ClassName("select-wrapper");
+            byInputTermo = By.Id("termo");
+            byInputAndamento = By.ClassName("switch");
+            byBotaoPesquisar = By.CssSelector("form>button.btn");
         }
 
         public void PesquisarLeiloes(
-            List<string> categorias)
+            List<string> categorias,
+            string termo,
+            bool emAndamento)
+
         {
-            var selectWrapper = driver.FindElement(bySelectCategorias);
-            selectWrapper.Click();
+            var select = new SelectMaterialize(driver, bySelectCategorias);
 
-            Thread.Sleep(2000);
+            select.DeselectAll();
+                      
+            select.SelectByText(categorias);
 
-            var opcoes = selectWrapper.FindElements(By.CssSelector("li>span")).ToList();
-
-            opcoes.ForEach(o =>
-           {
-               o.Click();
-           });
-
-            Thread.Sleep(2000);
-
-            categorias.ForEach(categ =>
+            driver.FindElement(byInputTermo).SendKeys(termo);
+            if (emAndamento)
             {
-                opcoes
-                    .Where(o => o.Text.Contains(categ))
-                    .ToList()
-                    .ForEach( o=>
-                    {
-                        o.Click();
-                    });
-            });
+                driver.FindElement(byInputAndamento).Click();
+            }
 
-            selectWrapper.FindElement(By.TagName("li"))
-                .SendKeys(Keys.Tab);
+            driver.FindElement(byBotaoPesquisar).Click();
 
-            Thread.Sleep(2000);
         }
 
         public void EfetuarLogout()
